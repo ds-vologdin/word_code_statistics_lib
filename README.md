@@ -23,7 +23,8 @@ functions_names_top.extend(
 )
 ```
 ## words_code_statistic.py
-Пример использования библиотеки представлен в words_code_statistic.py
+Пример использования библиотеки представлен в words_code_statistic.py.
+
 Парметры приложения:
 ```
 --path PATH          Пути к каталогам, где требуется провести анализ кода.
