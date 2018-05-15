@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
+import sys
 import argparse
 from code_parse import get_top_verbs_in_path, get_top_functions_names_in_path
 
@@ -73,8 +71,6 @@ def main(args):
     }
     output_statistic_to_stdout(statistic)
 
-    return 0
 
 if __name__ == "__main__":
-    import sys
     sys.exit(main(sys.argv))
