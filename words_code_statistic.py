@@ -49,7 +49,7 @@ def main(args):
     projects = get_projects_in_path(path=args.path)
     if not projects:
         print('no projects...no statistics...')
-        return 0
+        return None
     # Считаем статистику
     words_top = []
     functions_names_top = []
