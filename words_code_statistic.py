@@ -44,15 +44,12 @@ def output_statistic_to_stdout(statistic):
 
 
 def main(args):
-    # Парсим argv
     args = parse_argv()
 
-    # Формируем список путей до анализируемых проектов
     projects = get_projects_in_path(path=args.path)
     if not projects:
         print('no projects...no statistics...')
         return 0
-
     # Считаем статистику
     words_top = []
     functions_names_top = []

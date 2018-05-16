@@ -34,7 +34,6 @@ def split_snake_case_name_to_words(name):
 def get_all_words_in_path(path):
     ''' Получить все слова используемые в текстовых файлах каталога path '''
     trees = [t for t in get_trees(path) if t]
-    # Получаем список всех имён в дереве ast
     names = flat([get_all_names_in_tree(t) for t in trees])
     # Исключаем магические функции
     names = [
@@ -46,7 +45,6 @@ def get_all_words_in_path(path):
 def get_top_verbs_in_path(path, top_size=10):
     ''' Получить ТОП используемых глаголов в каталоге path '''
     trees = [t for t in get_trees(path) if t]
-
     function_names_in_code = flat(
         [get_functions_names_in_ast_tree(t) for t in trees]
     )
@@ -62,7 +60,6 @@ def get_top_verbs_in_path(path, top_size=10):
 
 def get_top_functions_names_in_path(path, top_size=10):
     ''' Получить ТОП используемых имён функций в каталоге path'''
-    # Получаем список ast деревьев
     trees = get_trees(path)
     # Формируем список имён в ast деревьях
     names = [
