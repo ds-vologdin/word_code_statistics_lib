@@ -29,4 +29,8 @@ functions_names_top = get_top_functions_names_in_path(path_project, top_size)
                     Можно указать несколько катологов в кавычках:
                     '/home/bill/coding/ /home/alisa/coding/'
 --top-size TOP_SIZE  Ограничивает вывод количества слов
+--log-level {debug,info,warning,error,critical}
+                      Уровень вывода логов. По умолчанию warning.
+--log-file LOG_FILE   Имя логфайла. По-умолчанию words_code_statistic.log
+
 ```
