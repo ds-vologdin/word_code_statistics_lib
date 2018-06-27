@@ -1,8 +1,8 @@
 import collections
 from nltk import pos_tag
 
-from ast_tree import (get_trees, get_all_names_in_tree,
-                      get_functions_names_in_ast_tree)
+from ast_tree import get_trees, get_all_names_in_tree
+from ast_tree import get_functions_names_in_ast_tree
 
 
 def flatten_list(not_flat_list):
