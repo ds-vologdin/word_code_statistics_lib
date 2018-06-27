@@ -4,7 +4,7 @@ from code_parse import get_top_verbs_in_path, get_top_functions_names_in_path
 import logging
 
 
-def convert_str_to_logging_level(level_str=None):
+def convert_str_to_logging_level(level_str):
     level = {
         'debug': logging.DEBUG,
         'info': logging.INFO,
