@@ -16,7 +16,6 @@ def get_tree(filename):
         logging.warning(
             '{0} SyntaxError error: {1}'.format(filename, e)
         )
-    return None
 
 
 def get_trees(path):
@@ -39,8 +38,6 @@ def get_trees_with_files_content(path):
 
 def get_all_names_in_tree(tree):
     ''' Получить все имена из ast дерева '''
-    if not tree:
-        return []
     return [
         node.id for node in ast.walk(tree) if isinstance(node, ast.Name)
     ]
@@ -48,8 +45,6 @@ def get_all_names_in_tree(tree):
 
 def get_functions_names_in_ast_tree(tree):
     ''' Получить список названий функций в дереве ast '''
-    if not tree:
-        return []
     return [
         node.name.lower()
         for node in ast.walk(tree)
@@ -59,8 +54,6 @@ def get_functions_names_in_ast_tree(tree):
 
 def get_filenames_in_path(path):
     ''' Получить все имена файлов с расширение .py в папке (рекурсивно) '''
-    if not path:
-        return []
     filenames = []
     for dirname, dirs, files in os.walk(path, topdown=True):
         # формируем список файлов с расширением .py в каждой папке
