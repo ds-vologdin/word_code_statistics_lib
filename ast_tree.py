@@ -1,31 +1,22 @@
 import os
 import ast
+import logging
 
 
 def get_tree(filename):
-    file_content = ''
     try:
         with open(filename, 'r', encoding='utf-8') as attempt_handler:
             file_content = attempt_handler.read()
-    except:
-        return None
-    try:
-        return ast.parse(file_content)
-    except SyntaxError:
-        return None
-
-
-def get_tree_with_file_content(filename):
-    file_content = ''
-    try:
-        with open(filename, 'r', encoding='utf-8') as attempt_handler:
-            file_content = attempt_handler.read()
-    except:
-        return None
-    try:
-        return (filename, ast.parse(file_content), file_content)
-    except SyntaxError:
-        return None
+            return ast.parse(file_content)
+    except IOError as e:
+        logging.warning(
+            '{0} I/O error({1}): {2}'.format(filename, e.errno, e.strerror)
+        )
+    except SyntaxError as e:
+        logging.warning(
+            '{0} SyntaxError error: {1}'.format(filename, e)
+        )
+    return None
 
 
 def get_trees(path):
@@ -43,7 +34,7 @@ def get_trees_with_filenames(path):
 
 def get_trees_with_files_content(path):
     filenames = get_filenames_in_path(path)
-    return [get_tree_with_file_content(filename) for filename in filenames]
+    return [(filename, get_tree(filename)) for filename in filenames]
 
 
 def get_all_names_in_tree(tree):
