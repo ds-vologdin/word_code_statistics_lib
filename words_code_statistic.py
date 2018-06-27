@@ -1,6 +1,18 @@
 import sys
 import argparse
 from code_parse import get_top_verbs_in_path, get_top_functions_names_in_path
+import logging
+
+
+def convert_str_to_logging_level(level_str=None):
+    level = {
+        'debug': logging.DEBUG,
+        'info': logging.INFO,
+        'warning': logging.WARNING,
+        'error': logging.ERROR,
+        'critical': logging.CRITICAL
+    }
+    return level.get(level_str, logging.WARNING)
 
 
 def parse_argv():
@@ -15,7 +27,17 @@ def parse_argv():
     )
     parser.add_argument(
         '--top-size', type=int, default=20,
-        help='Ограничивает вывод количества слов'
+        help='Ограничивает вывод количества слов.'
+    )
+    parser.add_argument(
+        '--log-level',
+        choices=['debug', 'info', 'warning', 'error', 'critical'],
+        default='warning',
+        help='Уровень вывода логов. По умолчанию warning.'
+    )
+    parser.add_argument(
+        '--log-file', default='{}.log'.format(__file__.rstrip('.py')),
+        help='Имя логфайла. По-умолчанию {}.log'.format(__file__.rstrip('.py'))
     )
     return parser.parse_args()
 
@@ -45,6 +67,12 @@ def output_statistic_to_stdout(statistic):
 
 def main(args):
     args = parse_argv()
+
+    logging.basicConfig(
+        filename=args.log_file,
+        level=convert_str_to_logging_level(args.log_level),
+        format='%(asctime)s:%(levelname)s:%(message)s'
+    )
 
     projects = get_projects_in_path(path=args.path)
     if not projects:
