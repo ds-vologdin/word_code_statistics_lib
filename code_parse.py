@@ -5,7 +5,7 @@ from ast_tree import (get_trees, get_all_names_in_tree,
                       get_functions_names_in_ast_tree)
 
 
-def flat(not_flat_list):
+def flatten_list(not_flat_list):
     """ [(1,2), (3,4)] -> [1, 2, 3, 4]"""
     return [item for sublist in not_flat_list for item in sublist]
 
@@ -34,18 +34,20 @@ def split_snake_case_name_to_words(name):
 def get_all_words_in_path(path):
     ''' Получить все слова используемые в текстовых файлах каталога path '''
     trees = [t for t in get_trees(path) if t]
-    names = flat([get_all_names_in_tree(t) for t in trees])
+    names = flatten_list([get_all_names_in_tree(t) for t in trees])
     # Исключаем магические функции
     names = [
         f for f in names if not (f.startswith('__') and f.endswith('__'))
     ]
-    return flat([split_snake_case_name_to_words(name) for name in names])
+    return flatten_list(
+        [split_snake_case_name_to_words(name) for name in names]
+    )
 
 
 def get_top_verbs_in_path(path, top_size=10):
     ''' Получить ТОП используемых глаголов в каталоге path '''
     trees = [t for t in get_trees(path) if t]
-    function_names_in_code = flat(
+    function_names_in_code = flatten_list(
         [get_functions_names_in_ast_tree(t) for t in trees]
     )
     # Удаляем магию
@@ -53,7 +55,7 @@ def get_top_verbs_in_path(path, top_size=10):
         name for name in function_names_in_code
         if not (name.startswith('__') and name.endswith('__'))
     ]
-    words = flat([get_verb_from_name(name) for name in names_in_code])
+    words = flatten_list([get_verb_from_name(name) for name in names_in_code])
 
     return collections.Counter(words).most_common(top_size)
 
@@ -63,7 +65,7 @@ def get_top_functions_names_in_path(path, top_size=10):
     trees = get_trees(path)
     # Формируем список имён в ast деревьях
     names = [
-        f for f in flat(
+        f for f in flatten_list(
             [get_functions_names_in_ast_tree(t) for t in trees if t]
         ) if not (f.startswith('__') and f.endswith('__'))
     ]
